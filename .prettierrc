@@ -8,16 +8,6 @@
 	"bracketSpacing": true,
 	"arrowParens": "always",
 	"endOfLine": "auto",
-	"plugins": ["@prettier/plugin-php"],
-	"overrides": [
-		{
-			"files": ["*.php"],
-			"excludeFiles": ["*.blade.php"],
-			"options": {
-				"parser": "php",
-				"phpVersion": "8.2",
-				"trailingCommaPHP": false
-			}
-		}
-	]
+	"plugins": [],
+	"overrides": []
 }
