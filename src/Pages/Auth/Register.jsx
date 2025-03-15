@@ -13,21 +13,44 @@ export default function Register() {
 	});
 
 	const [errors, setErrors] = useState({});
+	const [isLoading, setIsLoading] = useState(false);
 
-	async function handleRegister(e) {
-		e.preventDefault();
-		const res = await fetch("/api/register", {
-			method: "POST",
-			body: JSON.stringify(formData)
-		});
+	async function handleRegister(event) {
+		event.preventDefault();
+		setIsLoading(true);
 
-		const data = await res.json();
-		if (data.errors) {
-			setErrors(data.errors);
-		} else {
-			localStorage.setItem("token", data.token);
-			setToken(data.token);
-			navigate("/");
+		const controller = new AbortController();
+		const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+		try {
+			const res = await fetch("/api/register", {
+				method: "POST",
+				body: JSON.stringify(formData),
+				signal: controller.signal
+			});
+
+			clearTimeout(timeoutId);
+
+			const data = await res.json();
+			if (data.errors) {
+				setErrors(data.errors);
+			} else {
+				localStorage.setItem("token", data.token);
+				setToken(data.token);
+				navigate("/");
+			}
+		} catch (error) {
+			if (error.name === "AbortError") {
+				setErrors({
+					general: ["Request timed out. Please try again."]
+				});
+			} else {
+				setErrors({
+					general: ["An unexpected error occurred. Please try again."]
+				});
+			}
+		} finally {
+			setIsLoading(false);
 		}
 	}
 
@@ -57,6 +80,7 @@ export default function Register() {
 										username: e.target.value
 									})
 								}
+								disabled={isLoading}
 							/>
 						</label>
 
@@ -85,6 +109,7 @@ export default function Register() {
 										email: e.target.value
 									})
 								}
+								disabled={isLoading}
 							/>
 						</label>
 						{errors.email && (
@@ -112,6 +137,7 @@ export default function Register() {
 										password: e.target.value
 									})
 								}
+								disabled={isLoading}
 							/>
 						</label>
 						{errors.password && (
@@ -139,13 +165,26 @@ export default function Register() {
 										password_confirmation: e.target.value
 									})
 								}
+								disabled={isLoading}
 							/>
 						</label>
 					</div>
 
-					<button className="btn btn-primary w-1/2 mx-auto">
-						Register
+					<button
+						className={`btn btn-primary w-1/2 mx-auto ${
+							isLoading ? "btn-disabled" : ""
+						}`}>
+						{isLoading ? (
+							<span className="loading loading-spinner" />
+						) : (
+							"Register"
+						)}
 					</button>
+					{errors.general && (
+						<p className="error text-error italic text-sm">
+							{errors.general[0]}
+						</p>
+					)}
 				</form>
 			</div>
 		</>

@@ -24,8 +24,7 @@ export default function AppProvider({ children }) {
 				if (!res.ok) throw new Error("Auth failed");
 
 				setUser(await res.json());
-			} catch (error) {
-				console.error("Auth check failed:", error);
+			} catch {
 				localStorage.removeItem("token");
 				setToken(null);
 				setUser(null);
