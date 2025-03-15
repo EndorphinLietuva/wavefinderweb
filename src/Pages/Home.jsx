@@ -13,6 +13,8 @@ export default function Home() {
 		<>
 			<h1>Test</h1>
 			<pre>{data ? JSON.stringify(data, null, 2) : "Loading..."}</pre>
+			<pre>{data ? JSON.stringify(data, null, 2) : "Loading..."}</pre>
+			<pre>{data ? JSON.stringify(data, null, 2) : "Loading..."}</pre>
 		</>
 	);
 }
