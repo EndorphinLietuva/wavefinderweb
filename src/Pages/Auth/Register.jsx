@@ -6,7 +6,7 @@ export default function Register() {
 	const navigate = useNavigate();
 	const { setToken } = useContext(AppContext);
 	const [formData, setFormData] = useState({
-		name: "",
+		username: "",
 		email: "",
 		password: "",
 		password_confirmation: ""
@@ -16,7 +16,7 @@ export default function Register() {
 
 	async function handleRegister(e) {
 		e.preventDefault();
-		const res = await fetch("api/register", {
+		const res = await fetch("/api/register", {
 			method: "POST",
 			body: JSON.stringify(formData)
 		});
@@ -33,67 +33,121 @@ export default function Register() {
 
 	return (
 		<>
-			<h1 className="title">Register</h1>
+			<div className="flex flex-col items-center justify-center m-4 space-y-12">
+				<h1 className="text-4xl font-bold">Register</h1>
+				<form
+					onSubmit={handleRegister}
+					className="flex flex-col justify-center w-full max-w-md mx-auto space-y-6">
+					<div>
+						<label className="floating-label">
+							<span>Username</span>
+							<input
+								name="username"
+								type="text"
+								className={
+									errors.username
+										? "input input-error w-full"
+										: "input w-full"
+								}
+								placeholder="Username"
+								value={formData.username}
+								onChange={(e) =>
+									setFormData({
+										...formData,
+										username: e.target.value
+									})
+								}
+							/>
+						</label>
 
-			<form onSubmit={handleRegister} className="w-1/2 mx-auto space-y-6">
-				<div>
-					<input
-						type="text"
-						className="input"
-						placeholder="Name"
-						value={formData.name}
-						onChange={(e) =>
-							setFormData({ ...formData, name: e.target.value })
-						}
-					/>
-					{errors.name && <p className="error">{errors.name[0]}</p>}
-				</div>
-				<div>
-					<input
-						type="text"
-						className="input"
-						placeholder="Email"
-						value={formData.email}
-						onChange={(e) =>
-							setFormData({ ...formData, email: e.target.value })
-						}
-					/>
-					{errors.email && <p className="error">{errors.email[0]}</p>}
-				</div>
-				<div>
-					<input
-						type="password"
-						className="input"
-						placeholder="Password"
-						value={formData.password}
-						onChange={(e) =>
-							setFormData({
-								...formData,
-								password: e.target.value
-							})
-						}
-					/>
-					{errors.password && (
-						<p className="error">{errors.password[0]}</p>
-					)}
-				</div>
-				<div>
-					<input
-						type="password"
-						className="input"
-						placeholder="Confirm Password"
-						value={formData.password_confirmation}
-						onChange={(e) =>
-							setFormData({
-								...formData,
-								password_confirmation: e.target.value
-							})
-						}
-					/>
-				</div>
+						{errors.username && (
+							<p className="error text-error italic text-sm">
+								{errors.username[0]}
+							</p>
+						)}
+					</div>
+					<div>
+						<label className="floating-label">
+							<span>Email</span>
+							<input
+								name="email"
+								type="email"
+								className={
+									errors.email
+										? "input input-error w-full"
+										: "input w-full"
+								}
+								placeholder="Email"
+								value={formData.email}
+								onChange={(e) =>
+									setFormData({
+										...formData,
+										email: e.target.value
+									})
+								}
+							/>
+						</label>
+						{errors.email && (
+							<p className="error text-error italic text-sm">
+								{errors.email[0]}
+							</p>
+						)}
+					</div>
+					<div>
+						<label className="floating-label">
+							<span>Password</span>
+							<input
+								name="password"
+								type="password"
+								className={
+									errors.password
+										? "input input-error w-full"
+										: "input w-full"
+								}
+								placeholder="Password"
+								value={formData.password}
+								onChange={(e) =>
+									setFormData({
+										...formData,
+										password: e.target.value
+									})
+								}
+							/>
+						</label>
+						{errors.password && (
+							<p className="error text-error italic text-sm">
+								{errors.password[0]}
+							</p>
+						)}
+					</div>
+					<div>
+						<label className="floating-label">
+							<span>Confirm Password</span>
+							<input
+								name="password-confirm"
+								type="password"
+								className={
+									errors.password
+										? "input input-error w-full"
+										: "input w-full"
+								}
+								placeholder="Confirm Password"
+								value={formData.password_confirmation}
+								onChange={(e) =>
+									setFormData({
+										...formData,
+										password_confirmation: e.target.value
+									})
+								}
+							/>
+						</label>
+					</div>
 
-				<button className="btn btn-primary">Register</button>
-			</form>
+					<button className="btn btn-primary w-1/2 mx-auto">
+						Register
+					</button>
+				</form>
+			</div>
 		</>
 	);
 }
