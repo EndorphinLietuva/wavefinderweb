@@ -1,20 +1,29 @@
-import { useEffect, useState } from "react";
-
 export default function Home() {
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		fetch("http://wavefinderapi.test/api/v1/stations/random")
-			.then((response) => response.json())
-			.then((data) => setData(data))
-			.catch((error) => console.error("Error fetching data:", error));
-	}, []);
 	return (
-		<>
-			<h1>Test</h1>
-			<pre>{data ? JSON.stringify(data, null, 2) : "Loading..."}</pre>
-			<pre>{data ? JSON.stringify(data, null, 2) : "Loading..."}</pre>
-			<pre>{data ? JSON.stringify(data, null, 2) : "Loading..."}</pre>
-		</>
+		<div className="w-full h-full absolute flex">
+			{/* Background Blur */}
+			<div className="fixed -z-10 top-0 left-1/2 -translate-x-1/3 -translate-y-1/2">
+				<div className="bg-primary w-[1200px] h-[1000px] rounded-full blur-[200px] opacity-10" />
+			</div>
+
+			{/* Hero Content */}
+			<div className="flex-1 flex items-center justify-center">
+				{/* Left Column */}
+				<div className="flex-1 flex justify-center items-center p-4">
+					<h1 className="text-9xl font-bold text-center leading-none">
+						WAVEFINDER
+					</h1>
+				</div>
+
+				{/* Right Column */}
+				<div className="flex-1 flex justify-center items-center p-4">
+					<div className="text-center">
+						<h1 className="text-4xl font-bold md:text-3xl sm:text-2xl">
+							Ride the perfect radio wave.
+						</h1>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 }

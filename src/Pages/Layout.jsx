@@ -4,14 +4,13 @@ import Navbar from "../Components/Navbar";
 
 export default function Layout() {
 	return (
-		<>
-			<header>
+		<div className="flex flex-col h-screen">
+			<header className="flex-none">
 				<Navbar />
 			</header>
-
-			<main>
+			<main className="flex-grow relative overflow-hidden">
 				<Outlet />
 			</main>
-		</>
+		</div>
 	);
 }
