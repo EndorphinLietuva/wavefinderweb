@@ -17,7 +17,7 @@ export default function AppProvider({ children }) {
 					return;
 				}
 
-				const res = await fetch("/api/user", {
+				const res = await fetch("/api/user/session", {
 					headers: { Authorization: `Bearer ${token}` }
 				});
 

@@ -136,7 +136,7 @@ export default function Navbar() {
 									.removeAttribute("open")
 							}>
 							<li>
-								<a>Profile</a>
+								<Link to="/profile">Profile</Link>
 							</li>
 							<form onSubmit={logout}>
 								<li>

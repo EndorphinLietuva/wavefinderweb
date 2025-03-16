@@ -6,6 +6,7 @@ import Register from "./Pages/Auth/Register";
 import Login from "./Pages/Auth/Login";
 import { useContext } from "react";
 import { AppContext } from "./Context/AppContext";
+import Profile from "./Pages/Profile";
 
 export default function App() {
 	const { user, isLoading } = useContext(AppContext);
@@ -39,6 +40,7 @@ export default function App() {
 						/>
 					))
 				)}
+				<Route path="profile" element={<Profile />} />
 
 				{/* Catch-all route */}
 				<Route path="*" element={<Navigate to="/" replace />} />
