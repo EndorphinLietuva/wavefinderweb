@@ -47,6 +47,7 @@ export default function AppProvider({ children }) {
 		if (res.ok) {
 			setToken(null);
 			setUser(null);
+			localStorage.removeItem("token");
 			navigate("/");
 		}
 	};
