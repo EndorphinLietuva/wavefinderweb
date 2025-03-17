@@ -1,11 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
-import Layout from "./Pages/Layout";
-import Home from "./Pages/Home";
-import Register from "./Pages/Auth/Register";
-import Login from "./Pages/Auth/Login";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Register from "./pages/Auth/Register";
+import Login from "./pages/auth/Login";
+import StationLoader from "./components/StationLoader";
 import { useContext } from "react";
-import { AppContext } from "./Context/AppContext";
+import { AppContext } from "./context/AppContext";
 
 export default function App() {
 	const { user, isLoading } = useContext(AppContext);
@@ -39,6 +40,10 @@ export default function App() {
 						/>
 					))
 				)}
+
+				{/* Station routes */}
+				<Route path="random" element={<StationLoader />} />
+				<Route path="station/:stationId" element={<StationLoader />} />
 
 				{/* Catch-all route */}
 				<Route path="*" element={<Navigate to="/" replace />} />
