@@ -1,8 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+
 import RadioPlayerBar from "../components/RadioPlayerBar";
 
-export default function PlayStation({ radioStation }) {
+export default function PlayStation() {
+	const { radioStation } = useLoaderData();
+
 	if (!radioStation) {
 		return <div>No station data available</div>;
 	}

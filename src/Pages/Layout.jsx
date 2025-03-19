@@ -1,6 +1,6 @@
-import { Link, Outlet } from "react-router-dom";
-import { AppContext } from "../context/AppContext";
-import Navbar from "../components/Navbar";
+import { Outlet } from "react-router-dom";
+
+import Navbar from "../components/Navbar.jsx";
 
 export default function Layout() {
 	return (

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { AppContext } from "./AppContext";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { AppContext } from "./AppContext";
 
 export default function AppProvider({ children }) {
 	const [token, setToken] = useState(localStorage.getItem("token"));
@@ -48,7 +49,7 @@ export default function AppProvider({ children }) {
 			setToken(null);
 			setUser(null);
 			localStorage.removeItem("token");
-			//window.location.href = "/";
+			window.location.href = "/";
 			navigate("/");
 		}
 	};

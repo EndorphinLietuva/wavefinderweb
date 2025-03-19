@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
+
 import { AppContext } from "../context/AppContext";
 
 export default function Navbar() {
@@ -41,7 +42,7 @@ export default function Navbar() {
 							<Link>Browse</Link>
 						</li>
 						<li>
-							<Link>Random Station</Link>
+							<Link to="random">Random Station</Link>
 						</li>
 						{/* <li>
 							<Link>TBA</Link>

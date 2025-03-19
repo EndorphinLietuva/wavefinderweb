@@ -8,6 +8,9 @@
 	"bracketSpacing": true,
 	"arrowParens": "always",
 	"endOfLine": "auto",
-	"plugins": [],
+	"importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true,
+	"plugins": ["@trivago/prettier-plugin-sort-imports"],
 	"overrides": []
 }
