@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { AppContext } from "../Context/AppContext";
-import ThemeController from "./ThemeController";
+import { Link } from "react-router-dom";
+
+import ThemeController from "../components/ThemeController";
+import { AppContext } from "../context/AppContext";
 
 export default function Navbar() {
 	const { user, logout } = useContext(AppContext);
@@ -42,7 +43,7 @@ export default function Navbar() {
 							<Link to="/stations">Browse</Link>
 						</li>
 						<li>
-							<Link>Random Station</Link>
+							<Link to="random">Random Station</Link>
 						</li>
 						{/* <li>
 							<Link>TBA</Link>
@@ -104,7 +105,7 @@ export default function Navbar() {
 						<Link to="/stations">Browse</Link>
 					</li>
 					<li>
-						<Link>Random Station</Link>
+						<Link to="random">Random Station</Link>
 					</li>
 					{/* <li>
 						<details>

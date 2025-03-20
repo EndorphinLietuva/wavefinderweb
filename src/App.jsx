@@ -1,52 +1,38 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import "./App.css";
-import Layout from "./Pages/Layout";
-import Home from "./Pages/Home";
-import Register from "./Pages/Auth/Register";
-import Login from "./Pages/Auth/Login";
 import { useContext } from "react";
-import { AppContext } from "./Context/AppContext";
-import Profile from "./Pages/Profile";
-import Stations from "./Pages/Stations";
+import { Navigate, Outlet } from "react-router-dom";
 
-export default function App() {
+import "./App.css";
+import Spinner from "./components/spinner";
+import { AppContext } from "./context/AppContext";
+
+// Protected route wrapper component
+export const ProtectedRoute = () => {
 	const { user, isLoading } = useContext(AppContext);
 
 	if (isLoading) {
-		return (
-			<div className="loading-container flex items-center justify-center h-screen">
-				<div className="loading loading-spinner loading-xl"></div>
-			</div>
-		);
+		return <Spinner />;
 	}
 
-	return (
-		<Routes>
-			<Route path="/" element={<Layout />}>
-				<Route index element={<Home />} />
+	return user ? <Outlet /> : <Navigate to="/login" />;
+};
 
-				{/* Auth routes */}
-				{!user ? (
-					<>
-						<Route path="login" element={<Login />} />
-						<Route path="register" element={<Register />} />
-					</>
-				) : (
-					// Redirect authenticated users away from auth routes
-					["login", "register"].map((path) => (
-						<Route
-							key={path}
-							path={path}
-							element={<Navigate to="/" replace />}
-						/>
-					))
-				)}
-				<Route path="profile" element={<Profile />} />
-				<Route path="stations" element={<Stations />} />
+// Auth route wrapper component (redirect if already logged in)
+export const AuthRoute = () => {
+	const { user, isLoading } = useContext(AppContext);
 
-				{/* Catch-all route */}
-				<Route path="*" element={<Navigate to="/" replace />} />
-			</Route>
-		</Routes>
-	);
+	if (isLoading) {
+		return <Spinner />;
+	}
+
+	return user ? <Navigate to="/" /> : <Outlet />;
+};
+
+export default function App() {
+	const { isLoading } = useContext(AppContext);
+
+	if (isLoading) {
+		return <Spinner />;
+	}
+
+	return <Outlet />;
 }
