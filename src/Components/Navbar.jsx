@@ -39,7 +39,7 @@ export default function Navbar() {
 						</li>
 
 						<li>
-							<Link>Browse</Link>
+							<Link to="/stations">Browse</Link>
 						</li>
 						<li>
 							<Link>Random Station</Link>
@@ -101,7 +101,7 @@ export default function Navbar() {
 						</Link>
 					</li>
 					<li>
-						<Link>Browse</Link>
+						<Link to="/stations">Browse</Link>
 					</li>
 					<li>
 						<Link>Random Station</Link>

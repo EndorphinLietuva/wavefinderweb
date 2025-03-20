@@ -7,6 +7,7 @@ import Login from "./Pages/Auth/Login";
 import { useContext } from "react";
 import { AppContext } from "./Context/AppContext";
 import Profile from "./Pages/Profile";
+import Stations from "./Pages/Stations";
 
 export default function App() {
 	const { user, isLoading } = useContext(AppContext);
@@ -41,6 +42,7 @@ export default function App() {
 					))
 				)}
 				<Route path="profile" element={<Profile />} />
+				<Route path="stations" element={<Stations />} />
 
 				{/* Catch-all route */}
 				<Route path="*" element={<Navigate to="/" replace />} />
