@@ -66,7 +66,7 @@ const router = createBrowserRouter([
 						loader: randomStationLoader
 					},
 					{
-						path: "station/:stationId",
+						path: "stations/:stationId",
 						element: <PlayStation />,
 						loader: stationLoader
 					},
