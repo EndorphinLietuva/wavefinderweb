@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import ThemeController from "../components/ThemeController";
 import { AppContext } from "../context/AppContext";
 
 export default function Navbar() {
