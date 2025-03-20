@@ -1,27 +1,45 @@
-import React, { useState, useEffect, useRef } from "react";
 import { Howl } from "howler";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
-export function RadioPlayerBar({ radioStation }) {
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [volume, setVolume] = useState(50);
+import { AppContext } from "../context/AppContext";
+
+export default function RadioPlayerBar() {
+	const { currentStation, clearRadioStation } = useContext(AppContext);
+	const [isPlaying, setIsPlaying] = useState(
+		localStorage.getItem("radioPlaying") === "true"
+	);
+	const [volume, setVolume] = useState(() =>
+		parseInt(localStorage.getItem("playerVolume") || "50", 10)
+	);
 	const soundRef = useRef(null);
 	const fallbackIcon =
 		"https://img.icons8.com/ios-filled/150/000000/radio.png";
 
-	// Initialize Howl only once or when station.url_resolved changes
+	// Initialize Howl when station changes
 	useEffect(() => {
+		if (!currentStation?.url_resolved) return;
+
 		soundRef.current = new Howl({
-			src: [radioStation.url_resolved], // Ensure this is an array, as Howl expects one
-			html5: true, // Enables streaming large files
-			volume: volume / 100 // Convert percentage to range [0, 1]
+			src: [currentStation.url_resolved],
+			html5: true,
+			volume: volume / 100
 		});
 
-		return () => {
-			if (soundRef.current) {
-				soundRef.current.unload();
-			}
-		};
-	}, [radioStation.url_resolved]); // only re-run if the stream URL changes
+		if (isPlaying) {
+			soundRef.current.play();
+		}
+
+		return () => soundRef.current?.unload();
+	}, [currentStation]);
+
+	useEffect(() => {
+		soundRef.current?.volume(volume / 100);
+		localStorage.setItem("playerVolume", volume.toString());
+	}, [volume]);
+
+	useEffect(() => {
+		localStorage.setItem("radioPlaying", isPlaying.toString());
+	}, [isPlaying]);
 
 	const handlePlayPause = () => {
 		if (!soundRef.current) return;
@@ -31,53 +49,40 @@ export function RadioPlayerBar({ radioStation }) {
 		} else {
 			soundRef.current.play();
 		}
-		setIsPlaying((prevState) => !prevState);
+		setIsPlaying(!isPlaying);
 	};
 
-	const handleVolumeChange = (event) => {
-		const newVolume = parseInt(event.target.value, 10);
-		setVolume(newVolume);
-		if (soundRef.current) {
-			// Update Howl instance's volume (value from 0.0 to 1.0)
-			soundRef.current.volume(newVolume / 100);
-		}
-	};
+	if (!currentStation) return null;
 
 	return (
-		<>
-			<div className="bg-base-300 flex justify-between items-center p-4">
-				<div className="flex">
-					<img
-						src={
-							radioStation.favicon
-								? radioStation.favicon
-								: fallbackIcon
-						}
-						alt={`${radioStation.name} icon`}
-						className="w-16"
-					/>
-					<div className="px-2">
-						<h4 className="font-bold">{radioStation.name}</h4>
-						<p>{radioStation.info}</p>
-					</div>
+		<div className="bg-base-300 flex justify-between items-center p-4">
+			<div className="flex">
+				<img
+					src={currentStation.favicon || fallbackIcon}
+					alt={`${currentStation.name} icon`}
+					className="w-16"
+				/>
+				<div className="px-2">
+					<h4 className="font-bold">{currentStation.name}</h4>
+					<p>{currentStation.info}</p>
 				</div>
+			</div>
+			<div className="flex gap-2">
 				<button className="btn btn-primary" onClick={handlePlayPause}>
 					{isPlaying ? "Pause" : "Play"}
 				</button>
-				<div className="flex items-center space-x-4 px-6">
-					<input
-						className="range range-xs"
-						type="range"
-						min="0"
-						max="100"
-						value={volume}
-						onChange={handleVolumeChange}
-					/>
-					<h6 className="w-2">{volume}%</h6>
-				</div>
 			</div>
-		</>
+			<div className="flex items-center space-x-4 px-6">
+				<input
+					className="range range-xs"
+					type="range"
+					min="0"
+					max="100"
+					value={volume}
+					onChange={(e) => setVolume(parseInt(e.target.value, 10))}
+				/>
+				<h6 className="w-2">{volume}%</h6>
+			</div>
+		</div>
 	);
 }
-
-export default RadioPlayerBar;

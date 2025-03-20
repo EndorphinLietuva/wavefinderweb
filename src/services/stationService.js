@@ -6,7 +6,7 @@ export async function fetchRandomStation() {
 	}
 
 	const data = await response.json();
-	return data.data || data;
+	return data.data;
 }
 
 export async function fetchStationById(stationId) {
@@ -17,5 +17,5 @@ export async function fetchStationById(stationId) {
 	}
 
 	const data = await response.json();
-	return data.data || data;
+	return data.data;
 }
