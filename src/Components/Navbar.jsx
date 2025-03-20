@@ -39,7 +39,7 @@ export default function Navbar() {
 						</li>
 
 						<li>
-							<Link>Browse</Link>
+							<Link to="/stations">Browse</Link>
 						</li>
 						<li>
 							<Link to="random">Random Station</Link>
@@ -101,7 +101,7 @@ export default function Navbar() {
 						</Link>
 					</li>
 					<li>
-						<Link>Browse</Link>
+						<Link to="/stations">Browse</Link>
 					</li>
 					<li>
 						<Link to="random">Random Station</Link>
@@ -123,6 +123,9 @@ export default function Navbar() {
 			</div>
 			{user ? (
 				<div className="navbar-end space-x-2 hidden sm:flex">
+					<div>
+						<ThemeController />
+					</div>
 					<details
 						className="dropdown dropdown-end"
 						onMouseLeave={(e) => e.target.removeAttribute("open")}>
@@ -137,7 +140,7 @@ export default function Navbar() {
 									.removeAttribute("open")
 							}>
 							<li>
-								<a>Profile</a>
+								<Link to="/profile">Profile</Link>
 							</li>
 							<form onSubmit={logout}>
 								<li>
@@ -153,6 +156,9 @@ export default function Navbar() {
 				</div>
 			) : (
 				<div className="navbar-end space-x-2 hidden sm:flex">
+					<div>
+						<ThemeController />
+					</div>
 					<Link to="/register" className="btn btn-soft btn-primary">
 						Register
 					</Link>

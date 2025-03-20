@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default function RadioPlayerBar() {
-	const { currentStation, clearRadioStation } = useContext(AppContext);
+	const { currentStation } = useContext(AppContext);
 	const [isPlaying, setIsPlaying] = useState(
 		localStorage.getItem("radioPlaying") === "true"
 	);

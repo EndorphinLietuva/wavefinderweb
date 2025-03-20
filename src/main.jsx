@@ -9,6 +9,8 @@ import Home from "./pages/Home.jsx";
 import Layout from "./pages/Layout.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 import PlayStation from "./pages/PlayStation.jsx";
+import Profile from "./pages/Profile.jsx";
+import Stations from "./pages/Stations.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import {
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
 						path: "station/:stationId",
 						element: <PlayStation />,
 						loader: stationLoader
+					},
+					{
+						path: "stations",
+						element: <Stations />
+					},
+					{
+						path: "profile",
+						element: <Profile />
 					}
 				]
 			}
