@@ -9,12 +9,11 @@ export default function Layout() {
 	const { isRadioPlayerBarVisible, currentStation } = useContext(AppContext);
 
 	return (
-		<>
-			<header>
+		<div className="flex flex-col h-screen">
+			<header className="flex-none">
 				<Navbar />
 			</header>
-
-			<main>
+			<main className="flex-grow relative overflow-hidden">
 				<Outlet />
 				{isRadioPlayerBarVisible && currentStation != null && (
 					<div className="fixed bottom-0 w-full z-10">
@@ -22,6 +21,6 @@ export default function Layout() {
 					</div>
 				)}
 			</main>
-		</>
+		</div>
 	);
 }
