@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
+import ThemeController from "./ThemeController";
 
 export default function Navbar() {
 	const { user, logout } = useContext(AppContext);
@@ -122,6 +123,9 @@ export default function Navbar() {
 			</div>
 			{user ? (
 				<div className="navbar-end space-x-2 hidden sm:flex">
+					<div>
+						<ThemeController />
+					</div>
 					<details
 						className="dropdown dropdown-end"
 						onMouseLeave={(e) => e.target.removeAttribute("open")}>
@@ -152,6 +156,9 @@ export default function Navbar() {
 				</div>
 			) : (
 				<div className="navbar-end space-x-2 hidden sm:flex">
+					<div>
+						<ThemeController />
+					</div>
 					<Link to="/register" className="btn btn-soft btn-primary">
 						Register
 					</Link>
